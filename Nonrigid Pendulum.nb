@@ -1,0 +1,12 @@
+Needs["VariationalMethods`"]
+ClearAll["Global`*"]
+x[t]=r[t]*Sin[theta[t]]
+y[t]=r[t]*Cos[theta[t]]
+v[t]=Sqrt[(D[x[t], t]^2)+(D[y[t], t]^2)]
+ek[t]=(1/2)*m*v[t]^2
+esp[t] =Piecewise[{{0, r[t]<=R}, {(1/2)*k*(r[t]-R)^2, r[t]>R}}]
+egp[t]=m*g*(R-r[t]*Cos[theta[t]])
+ep[t]=esp[t]+egp[t]
+l[t]=Simplify[ek[t]-ep[t]]
+Solve[EulerEquations[l[t], r[t], t], r''[t]]
+Solve[EulerEquations[l[t], theta[t], t], theta''[t]] 
